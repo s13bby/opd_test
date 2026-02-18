@@ -2,7 +2,7 @@ from aiogram.types import Message
 from headers import keyboards
 import config
 
-async def help_command(message: Message):
+async def init(message: Message):
     user = message.from_user
 
     await message.answer(

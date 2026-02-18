@@ -2,7 +2,7 @@ from aiogram.types import Message
 from headers import db, keyboards
 import config
 #---------------------------------------------------------------------------------------
-async def status_command(message: Message):
+async def init(message: Message):
     user = message.from_user
 
     food = db.get_user_food(user.id)

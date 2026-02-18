@@ -3,7 +3,7 @@ from aiogram.types import Message
 from headers import db, keyboards
 import config
 
-async def start_command(message: Message):
+async def init(message: Message):
     user = message.from_user
 
     db.add_user(user.id, user.username)

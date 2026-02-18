@@ -42,32 +42,29 @@ def register(dp):
 #---------------------------------------------------------------------------------------
     @dp.message(Command('start'))
     async def back_to_start(message: Message):
-        await start.start_command(message)
+        await start.init(message)
 #---------------------------------------------------------------------------------------
     @dp.message(F.text == "Статус")
     async def status_button(message: Message):
-        await status.status_command(message)
+        await status.init(message)
 #---------------------------------------------------------------------------------------
     @dp.message(F.text == "Справка")
-    async def status_button(message: Message):
-        await help_.help_command(message)
+    async def help_button(message: Message):
+        await help_.init(message)
 #---------------------------------------------------------------------------------------
     @dp.message(F.text == "Тамогочи")
-    async def status_button(message: Message):
-        await tamogochi.status_command(message)
+    async def tamogochi_button(message: Message):
+        await tamogochi.init(message)
 #---------------------------------------------------------------------------------------
     @dp.message(F.text == "Магазин")
-    async def status_button(message: Message):
-        await shop.help_command(message)
+    async def shop_button(message: Message):
+        await shop.init(message)
 
-    @dp.message(F.text == "Яблоки")
-    async def status_button(message: Message):
-        await shop.help_command(message)
+    @dp.message(F.text == "Яблоки" or F.text == "Морковку")
+    async def apples_button(message: Message):
+        await shop.buy(message)
 
-    @dp.message(F.text == "Морковку")
-    async def status_button(message: Message):
-        await shop.help_command(message)
 #---------------------------------------------------------------------------------------
     @dp.message(F.text == "Назад")
     async def status_button(message: Message):
-        await start.start_command(message)
+        await start.status(message)
