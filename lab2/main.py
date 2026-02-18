@@ -4,7 +4,7 @@
 import asyncio
 from os import getenv
 from aiogram import Bot, Dispatcher
-from headers import db, start, status, help_
+from headers import db, start, status, help_, keyboards
 from config import TOKEN
 
 dp = Dispatcher()
@@ -13,9 +13,8 @@ async def main():
     bot = Bot(token=TOKEN)
 
     start.register(dp)
-    status.register(dp)
-    help_.register(dp)
-
+    keyboards.register(dp)
+    
     await dp.start_polling(bot)
 
 if __name__ == '__main__':

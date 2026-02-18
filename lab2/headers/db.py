@@ -11,6 +11,7 @@ def init_db():
         food INTEGER DEFAULT 50,
         water INTEGER DEFAULT 50,
         comfort INTEGER DEFAULT 50,
+        balance INTEGER DEFAULT 100,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )''')
     conn.commit()
@@ -47,6 +48,14 @@ def get_user_comfort(user_id):
     conn.close()
     return result[0] if result else 0
 
+def get_user_balance(user_id):
+    conn = sqlite3.connect(DATA_BASE)
+    c = conn.cursor()
+    c.execute('SELECT balance FROM users WHERE user_id = ?', (user_id,))
+    result = c.fetchone()
+    conn.close()
+    return result[0] if result else 0
+
 def increese_food(user_id, amount):
     conn = sqlite3.connect(DATA_BASE)
     c = conn.cursor()
@@ -65,6 +74,13 @@ def increese_comfort(user_id, amount):
     conn = sqlite3.connect(DATA_BASE)
     c = conn.cursor()
     c.execute('UPDATE users SET comfort = comfort + ? WHERE user_id = ?', (amount, user_id))
+    conn.commit()
+    conn.close()
+
+def increese_balance(user_id, amount):
+    conn = sqlite3.connect(DATA_BASE)
+    c = conn.cursor()
+    c.execute('UPDATE users SET balance = balance + ? WHERE user_id = ?', (amount, user_id))
     conn.commit()
     conn.close()
 
@@ -89,6 +105,13 @@ def decreese_comfort(user_id, amount):
     conn.commit()
     conn.close()
 
+def decreese_balance(user_id, amount):
+    conn = sqlite3.connect(DATA_BASE)
+    c = conn.cursor()
+    c.execute('UPDATE users SET balance = balance - ? WHERE user_id = ?', (amount, user_id))
+    conn.commit()
+    conn.close()
+
 def set_food(user_id, amount):
     conn = sqlite3.connect(DATA_BASE)
     c = conn.cursor()
@@ -107,5 +130,12 @@ def set_comfort(user_id, amount):
     conn = sqlite3.connect(DATA_BASE)
     c = conn.cursor()
     c.execute('UPDATE users SET comfort = ? WHERE user_id = ?', (amount, user_id))
+    conn.commit()
+    conn.close()
+
+def set_balance(user_id, amount):
+    conn = sqlite3.connect(DATA_BASE)
+    c = conn.cursor()
+    c.execute('UPDATE users SET balance = ? WHERE user_id = ?', (amount, user_id))
     conn.commit()
     conn.close()
