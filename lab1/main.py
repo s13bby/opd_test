@@ -36,8 +36,5 @@ def parse():
         file.write(f"Температура днем: {day_temp}\n")
         file.write(f"Температура ночью: {night_temp}\n")
 
-def main():
-    parse()
-
 if __name__ == '__main__':
-    main()
+    parse()
