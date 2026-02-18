@@ -1,7 +1,7 @@
 from aiogram.types import Message
-from headers import db
+from headers import db, keyboards
 import config
-
+#---------------------------------------------------------------------------------------
 async def status_command(message: Message):
     user = message.from_user
 
@@ -17,5 +17,5 @@ async def status_command(message: Message):
             water=water,
             comfort=comfort,
             balance=balance
-        )
+        ),reply_markup=keyboards.back_to_main()
     )

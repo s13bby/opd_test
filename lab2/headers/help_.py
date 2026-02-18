@@ -1,4 +1,5 @@
 from aiogram.types import Message
+from headers import keyboards
 import config
 
 async def help_command(message: Message):
@@ -7,5 +8,5 @@ async def help_command(message: Message):
     await message.answer(
         config.TEXTS["help"].format(
             name=user.first_name,
-        )
+        ), reply_markup=keyboards.get_main_menu()
     )
