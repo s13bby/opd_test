@@ -2,16 +2,19 @@ from aiogram.filters import Command
 from aiogram.types import Message
 from headers import db, keyboards
 import config
-
+#---------------------------------------------------------------------------------------
+USER_ID = user.id
+USERNAME= user.username
+#---------------------------------------------------------------------------------------
 async def init(message: Message):
-    user = message.from_user
+    user    = message.from_user
 
-    db.add_user(user.id, user.username)
+    db.add_user(USER_ID, USERNAME)
 
-    food = db.get_user_food(user.id)
-    water = db.get_user_water(user.id)
-    comfort = db.get_user_comfort(user.id)
-    balance = db.get_user_balance(user.id)
+    food    = db.get(USER_ID, "food")
+    water   = db.get(USER_ID, "water")
+    comfort = db.get(USER_ID, "comfort")
+    balance = db.get(USER_ID, "balance")
 
     await message.answer(
         config.TEXTS["welcome"].format(

@@ -1,12 +1,12 @@
 from aiogram.types import Message
 from headers import keyboards
 import config
-
+#---------------------------------------------------------------------------------------
 async def init(message: Message):
     user = message.from_user
 
     await message.answer(
         config.TEXTS["help"].format(
             name=user.first_name,
-        ), reply_markup=keyboards.get_main_menu()
+        ), reply_markup=keyboards.back_to_main()
     )

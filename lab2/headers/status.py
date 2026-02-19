@@ -2,20 +2,26 @@ from aiogram.types import Message
 from headers import db, keyboards
 import config
 #---------------------------------------------------------------------------------------
+USER_ID = user.id
+#---------------------------------------------------------------------------------------
 async def init(message: Message):
-    user = message.from_user
+    user    = message.from_user
 
-    food = db.get_user_food(user.id)
-    water = db.get_user_water(user.id)
-    comfort = db.get_user_comfort(user.id)
-    balance = db.get_user_balance(user.id)
+    food    = db.get(USER_ID, "food")
+    water   = db.get(USER_ID, "water")
+    comfort = db.get(USER_ID, "comfort")
+    balance = db.get(USER_ID, "balance")
+    apples  = db.get(USER_ID, "apples")
+    carrot  = db.get(USER_ID, "carrots")
+    bottles = db.get(USER_ID, "bottles")
 
     await message.answer(
         config.TEXTS["status"].format(
-            name=user.first_name,
             food=food,
             water=water,
             comfort=comfort,
-            balance=balance
+            balance=balance,
+            apples=apples,
+            carrot=carrot
         ),reply_markup=keyboards.back_to_main()
     )
