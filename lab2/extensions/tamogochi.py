@@ -1,7 +1,6 @@
 from aiogram.types import Message
 from extensions import db, keyboards
 import config, main
-
 #---------------------------------------------------------------------------------------
 async def init(message: Message):
     user    = message.from_user
@@ -27,7 +26,11 @@ async def feed (message: Message):
     user    = message.from_user
     USER_ID = user.id
 
+    food    = db.get(USER_ID, "food")
+    water   = db.get(USER_ID, "water")
+    comfort = db.get(USER_ID, "comfort")
     have_apples  = db.get(USER_ID, "apples")
+
     NEED_TO_FEED = message.text
 
     if have_apples >= 2:
@@ -50,6 +53,12 @@ async def feed (message: Message):
                     db.set_(USER_ID, 100, "food")
                 elif db.get(USER_ID, "water") > 100:
                     db.set_(USER_ID, 100, "water")
+                
+                food    = db.get(USER_ID, "food")
+                water   = db.get(USER_ID, "water")
+                comfort = db.get(USER_ID, "comfort")
+                have_apples  = db.get(USER_ID, "apples")
+                
                 await message.answer(
                     config.TEXTS["tm_feed"].format(
                         food=food,
@@ -64,7 +73,7 @@ async def feed (message: Message):
                 )
     else:
         await message.answer(
-                    config.TEXTS["tm_failed"],reply_markup=keyboards.tm_menu()
+                    config.TEXTS["tm_no_apples"],reply_markup=keyboards.tm_menu()
             )
 #---------------------------------------------------------------------------------------
 async def play (message: Message):
@@ -76,7 +85,7 @@ async def play (message: Message):
     NEED_TO_PLAY = message.text
 
     if NEED_TO_PLAY == "Поиграть":
-        
+
         if comfort == 100:
             await message.answer(
                 config.TEXTS["tm_no_need_play"].format(
@@ -89,6 +98,11 @@ async def play (message: Message):
             db.increese(USER_ID, main.HOW_MUCH_ADDED_COMFORT, "comfort")
             if db.get(USER_ID, "comfort") > 100:
                 db.set_(USER_ID, 100, "comfort")
+            
+            food    = db.get(USER_ID, "food")
+            water   = db.get(USER_ID, "water")
+            comfort = db.get(USER_ID, "comfort")
+            
             await message.answer(
                 config.TEXTS["tm_play"].format(
                     food=food,
