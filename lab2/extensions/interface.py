@@ -1,7 +1,7 @@
 from aiogram import F
 from aiogram.types import Message
 from aiogram.filters import Command
-from headers import status, help_, start, shop,keyboards as kb, tamogochi as tm
+from extensions import status, help_, start, shop,keyboards as kb, tamogochi as tm
 #---------------------------------------------------------------------------------------
 def register(dp):
 #---------------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ def register(dp):
     async def shop_button(message: Message):
         await shop.init(message)
 
-    @dp.message(F.text == "Яблоки" or F.text == "Морковку")
+    @dp.message(F.text == "Яблоки")
     async def apples_button(message: Message):
         await shop.buy(message)
 #---------------------------------------------------------------------------------------
@@ -39,4 +39,4 @@ def register(dp):
 #---------------------------------------------------------------------------------------
     @dp.message(F.text == "Назад в меню")
     async def status_button(message: Message):
-        await start.status(message)
+        await start.init(message)

@@ -6,8 +6,6 @@ WATER     = "water"
 COMFORT   = "comfort"
 BALANCE   = "balance"
 APPLES    = "apples"
-CARROTS   = "carrots"
-BOTTLES   = "bottles"
 #---------------------------------------------------------------------------------------
 def init_db():
     conn = sqlite3.connect(DATA_BASE)
@@ -20,8 +18,6 @@ def init_db():
         comfort INTEGER DEFAULT 50,
         balance INTEGER DEFAULT 10,
         apples INTEGER DEFAULT 0,
-        carrots INTEGER DEFAULT 0,
-        bottles INTEGER DEFAULT 0,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )""")
     conn.commit()
@@ -33,6 +29,14 @@ def add_user(user_id, username):
     c.execute("INSERT OR IGNORE INTO users (user_id, username) VALUES (?, ?)", (user_id, username))
     conn.commit()
     conn.close()
+#---------------------------------------------------------------------------------------
+def get_all_users():
+    conn = sqlite3.connect(DATA_BASE)
+    c = conn.cursor()
+    c.execute("SELECT user_id FROM users")
+    result = [row[0] for row in c.fetchall()]
+    conn.close()
+    return result
 #---------------------------------------------------------------------------------------
 def get(user_id, that):
     conn = sqlite3.connect(DATA_BASE)
@@ -48,10 +52,6 @@ def get(user_id, that):
             c.execute(f"SELECT {BALANCE} FROM users WHERE user_id = ?", (user_id,))
         case "apples":
             c.execute(f"SELECT {APPLES} FROM users WHERE user_id = ?", (user_id,))
-        case "carrots":
-            c.execute(f"SELECT {CARROTS} FROM users WHERE user_id = ?", (user_id,))
-        case "bottles":
-            c.execute(f"SELECT {BOTTLES} FROM users WHERE user_id = ?", (user_id,))
     result = c.fetchone()
     conn.close()
     return result[0] if result else 0
@@ -70,10 +70,6 @@ def increese(user_id, amount, that):
             c.execute(f"UPDATE users SET {BALANCE} = {BALANCE} + ? WHERE user_id = ?", (amount, user_id))
         case "apples":
             c.execute(f"UPDATE users SET {APPLES} = {APPLES} + ? WHERE user_id = ?", (amount, user_id))
-        case "carrots":
-            c.execute(f"UPDATE users SET {CARROTS} = {CARROTS} + ? WHERE user_id = ?", (amount, user_id))
-        case "bottles":
-            c.execute(f"UPDATE users SET {BOTTLES} = {BOTTLES} + ? WHERE user_id = ?", (amount, user_id))  
     conn.commit()
     conn.close()
 #---------------------------------------------------------------------------------------
@@ -91,10 +87,6 @@ def decreese(user_id, amount,that):
             c.execute(f"UPDATE users SET {BALANCE} = {BALANCE} - ? WHERE user_id = ?", (amount, user_id))
         case "apples":
             c.execute(f"UPDATE users SET {APPLES} = {APPLES} - ? WHERE user_id = ?", (amount, user_id))
-        case "carrots":
-            c.execute(f"UPDATE users SET {CARROTS} = {CARROTS} - ? WHERE user_id = ?", (amount, user_id))
-        case "bottles":
-            c.execute(f"UPDATE users SET {BOTTLES} = {BOTTLES} - ? WHERE user_id = ?", (amount, user_id))  
     conn.commit()
     conn.close()
 #---------------------------------------------------------------------------------------
@@ -112,9 +104,5 @@ def set_(user_id, amount, that):
             c.execute(f"UPDATE users SET {BALANCE} = ? WHERE user_id = ?", (amount, user_id))
         case "apples":
             c.execute(f"UPDATE users SET {APPLES} = ? WHERE user_id = ?", (amount, user_id))
-        case "carrots":
-            c.execute(f"UPDATE users SET {CARROTS} = ? WHERE user_id = ?", (amount, user_id))
-        case "bottles":
-            c.execute(f"UPDATE users SET {BOTTLES} = ? WHERE user_id = ?", (amount, user_id))  
     conn.commit()
     conn.close()

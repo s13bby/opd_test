@@ -26,8 +26,7 @@ def back_to_main():
 def shop_menu():
     kb = [
         [KeyboardButton(text="Яблоки")],
-        [KeyboardButton(text="Морковку")]
-        [KeyboardButton(text="Назад")]
+        [KeyboardButton(text="Назад в меню")]
     ]
     return ReplyKeyboardMarkup(
         keyboard=kb,
@@ -38,7 +37,7 @@ def shop_menu():
 def tm_menu():
     kb = [
         [KeyboardButton(text="Покормить")],
-        [KeyboardButton(text="Поиграть")]
+        [KeyboardButton(text="Поиграть")],
         [KeyboardButton(text="Назад в меню")]
     ]
     return ReplyKeyboardMarkup(

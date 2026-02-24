@@ -1,5 +1,5 @@
 from aiogram.types import Message
-from headers import keyboards
+from extensions import keyboards
 import config
 #---------------------------------------------------------------------------------------
 async def init(message: Message):
